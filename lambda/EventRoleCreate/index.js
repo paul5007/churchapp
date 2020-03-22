@@ -5,23 +5,14 @@ pool.connect();
 exports.handler = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
   var body = JSON.parse(event.body);
+  var eventID = body["eventID"];
+  var roleName = body["roleName"];
+  var description = body["description"];
   var username = body["username"];
-  var password = body["password"];
-  var email = body["email"];
 
   pool.query(
-    'INSERT INTO public."User"("Username") VALUES ($1);',
-    [username],
-    (err, res) => {
-      if (err !== null) {
-        callback(err, res);
-      }
-    }
-  );
-
-  pool.query(
-    'INSERT INTO public."UserPrivate"("Username", "Password", "Email") VALUES ($1, $2, $3);',
-    [username, password, email],
+    'INSERT INTO public."EventRole" ("EventID", "RoleName", "RoleDescription", "CreatedBy", "CreateTime", "UpdatedBy", "UpdateTime") VALUES ($1, $2, $3, $4, NOW(), $4, NOW());',
+    [eventID, roleName, description, username],
     (err, res) => {
       var response = {
         statusCode: 200,
@@ -29,7 +20,7 @@ exports.handler = (event, context, callback) => {
         headers: {
           "Access-Control-Allow-Origin": "*"
         },
-        body: "Successfully created User: " + username
+        body: "Successfully created Role: " + roleName
       };
       callback(err, response);
     }

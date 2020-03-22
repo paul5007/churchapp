@@ -4,11 +4,11 @@ pool.connect();
 
 exports.handler = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  const username = event["pathParameters"]["username"];
+  const eventID = event["pathParameters"]["eventID"];
 
   pool.query(
-    'SELECT * FROM public."User" where "Username" = $1;',
-    [username],
+    'SELECT * FROM public."EventRole" WHERE "EventID" = $1;',
+    [eventID],
     (err, res) => {
       var response = {
         statusCode: 200,
