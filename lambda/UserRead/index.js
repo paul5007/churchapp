@@ -4,13 +4,11 @@ pool.connect();
 
 exports.handler = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  var body = JSON.parse(event.body);
-  var username = [body["username"]];
-  var password = [body["password"]];
+  const username = [event["pathParameters"]["username"]];
 
   pool.query(
-    'INSERT INTO public."UserPrivate"("Username", "Password") VALUES ($1, $2);',
-    [username, password],
+    "SELECT * FROM public.\"User\" where 'Username' = $1;",
+    [username],
     (err, res) => {
       var response = {
         statusCode: 200,
@@ -18,7 +16,7 @@ exports.handler = (event, context, callback) => {
         headers: {
           "Access-Control-Allow-Origin": "*"
         },
-        body: "Successfully created User: " + username
+        body: JSON.stringify(res.rows[0])
       };
       callback(err, response);
     }
