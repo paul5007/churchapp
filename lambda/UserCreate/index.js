@@ -5,8 +5,8 @@ pool.connect();
 exports.handler = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
   var body = JSON.parse(event.body);
-  var username = [body["username"]];
-  var password = [body["password"]];
+  var username = body["username"];
+  var password = body["password"];
 
   pool.query(
     'INSERT INTO public."UserPrivate"("Username", "Password") VALUES ($1, $2);',
