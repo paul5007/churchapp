@@ -8,11 +8,12 @@ exports.handler = (event, context, callback) => {
   var eventID = body["eventID"];
   var roleName = body["roleName"];
   var description = body["description"];
+  var maxVolunteers = body["maxVolunteers"];
   var username = body["username"];
 
   pool.query(
-    'INSERT INTO public."EventRole" ("EventID", "RoleName", "RoleDescription", "CreatedBy", "CreateTime", "UpdatedBy", "UpdateTime") VALUES ($1, $2, $3, $4, NOW(), $4, NOW());',
-    [eventID, roleName, description, username],
+    'INSERT INTO public."EventRole" ("EventID", "RoleName", "RoleDescription", "RoleMaxVolunteers", "CreatedBy", "CreateTime", "UpdatedBy", "UpdateTime") VALUES ($1, $2, $3, $4, $5, NOW(), $5, NOW());',
+    [eventID, roleName, description, parseInt(maxVolunteers), username],
     (err, res) => {
       var response = {
         statusCode: 200,
