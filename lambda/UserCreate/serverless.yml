@@ -1,0 +1,23 @@
+service: Lambda
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+  stage: dev
+  region: us-east-1
+
+package:
+  include:
+    - index.js
+    - node_modules
+
+functions:
+  UserCreate:
+    handler: index.handler
+    timeout: 1
+    memorySize: 128
+    environment:
+      PGDATABASE: db1
+      PGPORT: 5432
+      PGHOST: database-1.cbnw6nneqhcp.us-east-1.rds.amazonaws.com
