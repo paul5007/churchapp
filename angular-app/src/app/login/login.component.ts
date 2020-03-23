@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     this.form = formBuilder.group({
       "username": this.username,
       "password": this.password
-    })
+    });
   }
 
   ngOnInit() {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -21,6 +21,16 @@ export class UserService {
     };
 
     return this.http.post(url, JSON.stringify(login));
+  }
+
+  public createNewUser(username, password, email): Observable<any> {
+    const url = this.basePath + '/user/create';
+    var create = {
+      "username": username,
+      "password": password,
+      "email": email
+    };
+    return this.http.post(url, JSON.stringify(create), { headers: { 'Access-Control-Allow-Origin': '*' } });
   }
 
   public setCurrentUser(username) {

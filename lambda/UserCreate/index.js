@@ -10,18 +10,26 @@ exports.handler = (event, context, callback) => {
   var email = body["email"];
 
   pool.query(
-    'INSERT INTO public."User"("Username") VALUES ($1);',
-    [username],
+    'INSERT INTO public."UserPrivate"("Username", "Password", "Email") VALUES ($1, $2, $3);',
+    [username, password, email],
     (err, res) => {
-      if (err !== null) {
-        callback(err, res);
+      if (err != null) {
+        var response = {
+          statusCode: 400,
+          isBase64Encoded: false,
+          headers: {
+            "Access-Control-Allow-Origin": "*"
+          },
+          body: "Failed to create User: " + username
+        };
+        callback(err, response);
       }
     }
   );
 
   pool.query(
-    'INSERT INTO public."UserPrivate"("Username", "Password", "Email") VALUES ($1, $2, $3);',
-    [username, password, email],
+    'INSERT INTO public."User"("Username") VALUES ($1);',
+    [username],
     (err, res) => {
       var response = {
         statusCode: 200,
@@ -34,4 +42,6 @@ exports.handler = (event, context, callback) => {
       callback(err, response);
     }
   );
+
+
 };
