@@ -9,7 +9,7 @@ export class EventService {
 
   constructor(private http: HttpClient) { }
 
-  private basePath = 'https://abt1jgp1ze.execute-api.us-east-1.amazonaws.com/dev';
+  private basePath = 'https://9grr2cnefd.execute-api.us-east-1.amazonaws.com/dev';
 
   public readAllEvents(): Observable<any> {
     const url = this.basePath + "/event/readall";
@@ -17,7 +17,7 @@ export class EventService {
   }
 
   public getUserEvents(username): Observable<any> {
-    const url = this.basePath + "/event/read/" + username;
+    const url = this.basePath + "/event/role/read/" + username;
     return this.http.get(url);
   }
 }
