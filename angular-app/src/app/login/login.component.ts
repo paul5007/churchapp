@@ -27,8 +27,6 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit() {
-    console.log(this.username.value)
-    console.log(this.password.value)
     this.userService.getCurrentUser(this.username.value, this.password.value).subscribe(resp => {
       if (resp === null) {
         this.password.reset();

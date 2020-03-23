@@ -29,15 +29,18 @@ export class UserCreateComponent implements OnInit {
   }
 
   public onSubmit() {
-    console.log(this.username.value)
-    console.log(this.password.value)
+    if (this.username == null || this.password == null) {
+      this.form.reset();
+      this.failedCreate = true;
+      return;
+    }
     this.userService.createNewUser(this.username.value, this.password.value, this.email.value).subscribe(resp => {
-      if (resp === null) {
+      if (resp === undefined) {
         this.form.reset();
         this.failedCreate = true;
       } else {
-        this.userService.setCurrentUser(resp.token);
-        this.router.navigate(['/profile']);
+        this.userService.setCurrentUser(this.username);
+        this.router.navigate(['/login']);
       }
     });
   }

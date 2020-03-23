@@ -30,7 +30,7 @@ export class UserService {
       "password": password,
       "email": email
     };
-    return this.http.post(url, JSON.stringify(create), { headers: { 'Access-Control-Allow-Origin': '*' } });
+    return this.http.post(url, JSON.stringify(create));
   }
 
   public setCurrentUser(username) {
