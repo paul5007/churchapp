@@ -15,10 +15,9 @@ package:
     - config/**
     - EventCreate/**
     - EventReadAll/**
-    - EventReadByUser/**
     - EventRoleCreate/**
-    - EventRoleReadAll/**
-    - EventRoleReadAllByUser/**
+    - EventRoleList/**
+    - EventRoleReadAllForUser/**
     - UserCreate/**
     - UserLogin/**
     - UserRead/**
@@ -57,30 +56,6 @@ functions:
       - http:
           path: /event/readall
           method: get
-    environment:
-      PGDATABASE: ${self:custom.PGDATABASE}
-      PGHOST: ${self:custom.PGHOST}
-      PGPASSWORD: ${self:custom.PGPASSWORD}
-      PGPORT: ${self:custom.PGPORT}
-      PGUSER: ${self:custom.PGUSER}
-
-  EventReadByUser:
-    handler: EventReadByUser/index.handler
-    timeout: 1
-    memorySize: 128
-    package:
-      include:
-        - EventReadByUser/index.js
-    layers:
-      - arn:aws:lambda:us-east-1:935952531494:layer:node-pg:3
-    events:
-      - http:
-          path: /event/read/{username}
-          method: get
-          request:
-            parameters:
-              paths:
-                username: true
     environment:
       PGDATABASE: ${self:custom.PGDATABASE}
       PGHOST: ${self:custom.PGHOST}
@@ -176,6 +151,26 @@ functions:
       PGPORT: ${self:custom.PGPORT}
       PGUSER: ${self:custom.PGUSER}
 
+  UserLogin:
+    handler: UserLogin/index.handler
+    timeout: 1
+    memorySize: 128
+    package:
+      include:
+        - UserLogin/index.js
+    layers:
+      - arn:aws:lambda:us-east-1:935952531494:layer:node-pg:3
+    events:
+      - http:
+          path: /user/login
+          method: post
+    environment:
+      PGDATABASE: ${self:custom.PGDATABASE}
+      PGHOST: ${self:custom.PGHOST}
+      PGPASSWORD: ${self:custom.PGPASSWORD}
+      PGPORT: ${self:custom.PGPORT}
+      PGUSER: ${self:custom.PGUSER}
+
   UserRead:
     handler: UserRead/index.handler
     timeout: 1
@@ -193,26 +188,6 @@ functions:
             parameters:
               paths:
                 username: true
-    environment:
-      PGDATABASE: ${self:custom.PGDATABASE}
-      PGHOST: ${self:custom.PGHOST}
-      PGPASSWORD: ${self:custom.PGPASSWORD}
-      PGPORT: ${self:custom.PGPORT}
-      PGUSER: ${self:custom.PGUSER}
-
-  UserLogin:
-    handler: UserLogin/index.handler
-    timeout: 1
-    memorySize: 128
-    package:
-      include:
-        - UserLogin/index.js
-    layers:
-      - arn:aws:lambda:us-east-1:935952531494:layer:node-pg:3
-    events:
-      - http:
-          path: /user/login
-          method: post
     environment:
       PGDATABASE: ${self:custom.PGDATABASE}
       PGHOST: ${self:custom.PGHOST}
