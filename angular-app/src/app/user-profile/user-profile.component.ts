@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
+import { EventService } from '../event.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -8,9 +9,14 @@ import { UserService } from '../user.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private eventService: EventService) { }
+
+  public currentUser;
 
   ngOnInit() {
+    this.userService.currentUser;
+    console.log(this.currentUser)
+    this.eventService.getUserEvents(this.currentUser);
   }
 
 }

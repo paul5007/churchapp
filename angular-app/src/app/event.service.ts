@@ -15,4 +15,9 @@ export class EventService {
     const url = this.basePath + "/event/readall";
     return this.http.get(url);
   }
+
+  public getUserEvents(username): Observable<any> {
+    const url = this.basePath + "/event/user/" + username;
+    return this.http.get(url);
+  }
 }

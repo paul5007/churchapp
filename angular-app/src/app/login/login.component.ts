@@ -22,9 +22,8 @@ export class LoginComponent implements OnInit {
 
   public submit() {
     this.userService.getCurrentUser('pfa5007', 'demo123').subscribe(resp => {
-      if (resp.status = 200) {
-        this.userService.setCurrentUser(resp.username);
-      }
+      this.userService.setCurrentUser('pfa5007');
+      console.log(this.userService.currentUser);
     })
   }
 

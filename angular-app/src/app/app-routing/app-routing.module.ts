@@ -4,6 +4,7 @@ import { HomeComponent } from '../home/home.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { EventListComponent } from '../event-list/event-list.component';
 import { LoginComponent } from '../login/login.component';
+import { UserCreateComponent } from '../user-create/user-create.component';
 
 const routes: Routes = [{
   path: '',
@@ -12,6 +13,10 @@ const routes: Routes = [{
 {
   path: 'profile',
   component: UserProfileComponent
+},
+{
+  path: 'user/create',
+  component: UserCreateComponent
 },
 {
   path: 'events',
