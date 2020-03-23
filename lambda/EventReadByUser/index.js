@@ -4,27 +4,19 @@ pool.connect();
 
 exports.handler = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  var body = JSON.parse(event.body)
-  const username = body['username'];
-  const password = body['password'];
+  const username = event["pathParameters"]["username"];
 
   pool.query(
-    'SELECT "Username" FROM public."UserPrivate" where "Username" = $1 and "Password" = $2;',
-    [username, password],
+    'SELECT * FROM public."Event" where "CreatedBy" = $1;',
+    [username],
     (err, res) => {
-      if (err == null) {
-        var obj = {
-          "token": username
-        };
-      }
-
       var response = {
         statusCode: 200,
         isBase64Encoded: false,
         headers: {
           "Access-Control-Allow-Origin": "*"
         },
-        body: JSON.stringify(obj)
+        body: JSON.stringify(res.rows)
       };
       callback(err, response);
     }
