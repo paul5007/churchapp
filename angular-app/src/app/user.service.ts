@@ -26,4 +26,8 @@ export class UserService {
   public setCurrentUser(username) {
     this.currentUser = username;
   }
+
+  public logout() {
+    this.currentUser = null;
+  }
 }

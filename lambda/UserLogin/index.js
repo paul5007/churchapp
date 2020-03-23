@@ -12,7 +12,7 @@ exports.handler = (event, context, callback) => {
     'SELECT "Username" FROM public."UserPrivate" where "Username" = $1 and "Password" = $2;',
     [username, password],
     (err, res) => {
-      if (err == null) {
+      if (err == null && res.rows[0] != null) {
         var obj = {
           "token": username
         };
