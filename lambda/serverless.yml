@@ -18,6 +18,7 @@ package:
     - EventReadByUser/**
     - EventRoleCreate/**
     - EventRoleReadAll/**
+    - EventRoleReadAllByUser/**
     - UserCreate/**
     - UserLogin/**
     - UserRead/**
@@ -107,23 +108,47 @@ functions:
       PGPORT: ${self:custom.PGPORT}
       PGUSER: ${self:custom.PGUSER}
 
-  EventRoleReadAll:
-    handler: EventRoleReadAll/index.handler
+  EventRoleList:
+    handler: EventRoleList/index.handler
     timeout: 1
     memorySize: 128
     package:
       include:
-        - EventRoleReadAll/index.js
+        - EventRoleList/index.js
     layers:
       - arn:aws:lambda:us-east-1:935952531494:layer:node-pg:3
     events:
       - http:
-          path: /event/role/read/{eventID}
+          path: /event/role/list/{eventID}
           method: get
           request:
             parameters:
               paths:
                 eventID: true
+    environment:
+      PGDATABASE: ${self:custom.PGDATABASE}
+      PGHOST: ${self:custom.PGHOST}
+      PGPASSWORD: ${self:custom.PGPASSWORD}
+      PGPORT: ${self:custom.PGPORT}
+      PGUSER: ${self:custom.PGUSER}
+
+  EventRoleReadAllForUser:
+    handler: EventRoleReadAllForUser/index.handler
+    timeout: 1
+    memorySize: 128
+    package:
+      include:
+        - EventRoleReadAllForUser/index.js
+    layers:
+      - arn:aws:lambda:us-east-1:935952531494:layer:node-pg:3
+    events:
+      - http:
+          path: /event/role/read/{username}
+          method: get
+          request:
+            parameters:
+              paths:
+                username: true
     environment:
       PGDATABASE: ${self:custom.PGDATABASE}
       PGHOST: ${self:custom.PGHOST}

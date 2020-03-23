@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -22,8 +23,8 @@ export class LoginComponent implements OnInit {
 
   public submit() {
     this.userService.getCurrentUser('pfa5007', 'demo123').subscribe(resp => {
-      this.userService.setCurrentUser('pfa5007');
-      console.log(this.userService.currentUser);
+      this.userService.setCurrentUser(resp.token);
+      this.router.navigate(['/profile']);
     })
   }
 

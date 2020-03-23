@@ -1,13 +1,8 @@
-<ng-container *ngIf="currentUser === undefined; then thenTemplate; else elseTemplate"></ng-container>
-<ng-template #thenTemplate>
-    <app-login></app-login>
-</ng-template>
-<ng-template #elseTemplate>
-    <ul class="list-group" *ngFor="let e of events">
-        <li class="list-group-item"> {{e.EventName}} : {{e.Description}} <span></span><span
-                class="float-right"><span class="mr-2">Organizer :
-                    {{e.CreatedBy}}</span><button
-                    class="btn
-                    btn-primary">View</button></span></li>
-    </ul>
-</ng-template>
+<h1>Your Organized Events</h1>
+<ul class="list-group" *ngFor="let e of events">
+    <li class="list-group-item"> {{e.EventName}} : {{e.Description}} <span></span><span
+            class="float-right"><span class="mr-2">Organizer : {{e.CreatedBy}}</span><button
+                class="btn
+                btn-primary">View</button></span></li>
+</ul>
+<h1>Other Events You Are Volunteering For</h1>

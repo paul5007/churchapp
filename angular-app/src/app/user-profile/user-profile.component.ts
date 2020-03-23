@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { EventService } from '../event.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,14 +10,19 @@ import { EventService } from '../event.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor(private userService: UserService, private eventService: EventService) { }
+  constructor(private userService: UserService, private eventService: EventService, private router: Router) { }
 
   public currentUser;
+  public events: [];
 
   ngOnInit() {
-    this.userService.currentUser;
-    console.log(this.currentUser)
-    this.eventService.getUserEvents(this.currentUser);
+    this.currentUser = this.userService.currentUser;
+    if (this.currentUser == null) {
+      this.router.navigate(['/login'])
+    }
+    this.eventService.getUserEvents(this.currentUser).subscribe(resp => {
+      this.events = resp;
+    });
   }
 
 }
