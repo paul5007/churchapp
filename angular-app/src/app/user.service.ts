@@ -9,18 +9,19 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public currentUser;
+  private currentUser;
 
   public basePath = 'https://9grr2cnefd.execute-api.us-east-1.amazonaws.com/dev';
 
-  public getCurrentUser(username, password): Observable<any> {
+  public loginUser(username, password) {
     const url = this.basePath + "/user/login";
     var login = {
       "username": username,
       "password": password
     };
-
-    return this.http.post(url, JSON.stringify(login));
+    this.http.post(url, JSON.stringify(login)).subscribe(resp => {
+      this.currentUser = resp['token'];
+    });
   }
 
   public createNewUser(username, password, email): Observable<any> {
@@ -33,8 +34,8 @@ export class UserService {
     return this.http.post(url, JSON.stringify(create));
   }
 
-  public setCurrentUser(username) {
-    this.currentUser = username;
+  public getCurrentUser() {
+    return this.currentUser;
   }
 
   public logout() {

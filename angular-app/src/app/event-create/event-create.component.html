@@ -1,0 +1,52 @@
+<h1 class="col-md-4 offset-md-4">Create Event</h1>
+<form class="container" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-group col-md-4 offset-md-4">
+    <label for="eventName">Event Name <small>(Required)</small></label>
+    <input
+      type="text"
+      class="form-control"
+      id="eventName"
+      placeholder="Enter event name"
+      formControlName="eventName"
+      required
+    />
+  </div>
+  <div class="form-group col-md-4 offset-md-4">
+    <label for="description">Event Description <small>(Required)</small></label>
+    <input
+      type="text"
+      class="form-control"
+      id="description"
+      placeholder="Enter a description"
+      formControlName="description"
+      required
+    />
+  </div>
+  <div class="row">
+    <div class="form-group col-md-2 offset-md-4">
+      <label for="minVolunteers"
+        >Minimum Volunteers <small>(Required)</small></label
+      >
+      <input
+        type="number"
+        class="form-control"
+        id="minVolunteers"
+        formControlName="minVolunteers"
+        placeholder="1"
+        required
+      />
+    </div>
+    <div class="form-group col-md-2">
+      <label for="maxVolunteers">Maximum Volunteers <small>(Not Required)</small></label>
+      <input
+        type="number"
+        class="form-control"
+        id="maxVolunteers"
+        formControlName="maxVolunteers"
+        required
+      />
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary offset-md-5">Submit</button>
+</form>

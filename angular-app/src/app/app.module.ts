@@ -12,7 +12,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { LoginComponent } from './login/login.component';
 import { UserCreateComponent } from './user-create/user-create.component';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { EventCreateComponent } from './event-create/event-create.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     NavbarComponent,
     EventListComponent,
     LoginComponent,
-    UserCreateComponent
+    UserCreateComponent,
+    EventCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -36,5 +37,3 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-platformBrowserDynamic().bootstrapModule(AppModule);

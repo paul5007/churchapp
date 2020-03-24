@@ -39,7 +39,6 @@ export class UserCreateComponent implements OnInit {
         this.form.reset();
         this.failedCreate = true;
       } else {
-        this.userService.setCurrentUser(this.username);
         this.router.navigate(['/login']);
       }
     });

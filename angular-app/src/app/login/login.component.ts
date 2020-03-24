@@ -27,14 +27,14 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.userService.getCurrentUser(this.username.value, this.password.value).subscribe(resp => {
-      if (resp === null) {
+    this.userService.loginUser(this.username.value, this.password.value);
+    setTimeout(() => {
+      if (this.userService.getCurrentUser() == null) {
         this.password.reset();
         this.failedLogin = true;
       } else {
-        this.userService.setCurrentUser(resp.token);
         this.router.navigate(['/profile']);
       }
-    });
+    }, 2000);
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../event.service';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-list',
@@ -8,7 +10,13 @@ import { EventService } from '../event.service';
 })
 export class EventListComponent implements OnInit {
 
-  constructor(private eventService: EventService) { }
+  public hasCurrentUser: boolean = false;
+
+  constructor(private eventService: EventService, private userService: UserService, private router: Router) {
+    if (userService.getCurrentUser() != null) {
+      this.hasCurrentUser = true;
+    }
+  }
 
   public events: [];
 
@@ -16,6 +24,10 @@ export class EventListComponent implements OnInit {
     this.eventService.readAllEvents().subscribe(resp => {
       this.events = resp;
     })
+  }
+
+  public createEvent() {
+    this.router.navigate(['/user/create']);
   }
 
 }
