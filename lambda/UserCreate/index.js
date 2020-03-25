@@ -13,7 +13,7 @@ exports.handler = (event, context, callback) => {
     'INSERT INTO public."UserPrivate"("Username", "Password", "Email") VALUES ($1, $2, $3);',
     [username, password, email],
     (err, res) => {
-      if (err != null) {
+      if (err !== null) {
         var response = {
           statusCode: 400,
           isBase64Encoded: false,
@@ -22,7 +22,7 @@ exports.handler = (event, context, callback) => {
           },
           body: "Failed to create User: " + username
         };
-        callback(err, response);
+        callback(null, response);
       }
     }
   );
