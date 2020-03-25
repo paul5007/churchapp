@@ -159,13 +159,14 @@ functions:
 
   UserCreate:
     handler: UserCreate/index.handler
-    timeout: 1
+    timeout: 5
     memorySize: 128
     package:
       include:
         - UserCreate/index.js
     layers:
       - arn:aws:lambda:us-east-1:935952531494:layer:node-pg:3
+      - arn:aws:lambda:us-east-1:935952531494:layer:bcrypt-layer:3
     events:
       - http:
           path: /user/create
@@ -179,13 +180,14 @@ functions:
 
   UserLogin:
     handler: UserLogin/index.handler
-    timeout: 1
+    timeout: 5
     memorySize: 128
     package:
       include:
         - UserLogin/index.js
     layers:
       - arn:aws:lambda:us-east-1:935952531494:layer:node-pg:3
+      - arn:aws:lambda:us-east-1:935952531494:layer:bcrypt-layer:3
     events:
       - http:
           path: /user/login
