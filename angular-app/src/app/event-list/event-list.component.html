@@ -17,8 +17,10 @@
       </button>
     </span>
     <p>
-      Starts {{ e.EventStartTime | date }} :
-      <span *ngIf="e.EventEndTime">Ends {{ e.EventEndTime | date }} </span>
+      Starts {{ e.EventStartTime | date }}
+      <span *ngIf="e.EventEndTime != 0">
+        : Ends {{ e.EventEndTime | date }}
+      </span>
     </p>
   </li>
 </ul>

@@ -10,6 +10,9 @@
       formControlName="eventName"
       required
     />
+    <small *ngIf="failedEventName" class="text-danger" for="eventName"
+      >Event name required</small
+    >
   </div>
   <div class="form-group col-md-6 offset-md-3">
     <label for="description">Event Description <small>(Required)</small></label>
@@ -21,6 +24,9 @@
       formControlName="description"
       required
     />
+    <small *ngIf="failedDescription" class="text-danger" for="description"
+      >Description required</small
+    >
   </div>
   <div class="form-group col-md-4 offset-md-3">
     <label for="minVolunteers"
@@ -35,6 +41,9 @@
       min="1"
       required
     />
+    <small *ngIf="failedMinVolunteers" class="text-danger" for="minVolunteers"
+      >Minimum number of volunteers required</small
+    >
   </div>
   <div class="form-group col-md-4 offset-md-3">
     <label for="maxVolunteers"
@@ -58,6 +67,9 @@
       placeholder="1"
       required
     />
+    <small *ngIf="failedEventStartTime" class="text-danger" for="eventStartTime"
+      >Event start time required</small
+    >
   </div>
   <div class="form-group col-md-4 offset-md-3">
     <label for="eventEndTime">End Time <small>(Not Required)</small></label>

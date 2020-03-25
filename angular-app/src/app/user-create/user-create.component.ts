@@ -34,9 +34,13 @@ export class UserCreateComponent implements OnInit {
     console.log(this.username.value + " " + this.password.value)
     if (this.username.value == null || this.username.value == "") {
       this.failedUsername = true;
+    } else {
+      this.failedUsername = false;
     }
     if (this.password.value == null || this.password.value == "") {
       this.failedPassword = true;
+    } else {
+      this.failedPassword = false;
     }
     if (this.failedUsername || this.failedPassword) {
       return;

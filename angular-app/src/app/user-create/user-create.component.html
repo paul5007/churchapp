@@ -10,8 +10,8 @@
       formControlName="username"
       required
     />
-    <label *ngIf="failedUsername" class="text-danger" for="username"
-      >Username required</label
+    <small *ngIf="failedUsername" class="text-danger" for="username"
+      >Username required</small
     >
   </div>
   <div class="form-group col-md-4 offset-md-4">
@@ -24,11 +24,11 @@
       formControlName="password"
       required
     />
-    <label *ngIf="failedPassword" class="text-danger" for="password"
-      >Password required</label
+    <small *ngIf="failedPassword" class="text-danger" for="password"
+      >Password required</small
     >
-    <label *ngIf="failedCreate" class="text-danger" for="password"
-      >Username already exists</label
+    <small *ngIf="failedCreate" class="text-danger" for="password"
+      >Username already exists</small
     >
   </div>
   <div class="form-group col-md-4 offset-md-4">
