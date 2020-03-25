@@ -10,7 +10,7 @@
 <ul class="list-group" *ngFor="let e of events">
     <li class="list-group-item mb-2"> {{e.EventName}} : {{e.Description}} <span
             class="float-right">{{e.RoleName}} <span><button class="btn
-                    btn-primary ml-2">View</button></span>
+                    btn-primary ml-2" (click)="viewEvent(e.ID)">View</button></span>
         </span>
     </li>
 </ul>

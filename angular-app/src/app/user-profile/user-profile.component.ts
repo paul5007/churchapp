@@ -26,4 +26,8 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  public viewEvent(id: String) {
+    this.router.navigate(['/event', id]);
+  }
+
 }
