@@ -21,7 +21,7 @@ exports.handler = (event, context, callback) => {
     'INSERT INTO public."Event"("EventName", "Description", "MinVolunteers", "MaxVolunteers", "EventStartTime", "EventEndTime", "CreatedBy", "CreateTime", "UpdatedBy", "UpdateTime") VALUES ($1, $2, $3, $4, $5, $6, $7, (extract(epoch from NOW()) * 1000), $7, (extract(epoch from NOW()) * 1000)) RETURNING "ID";',
     [eventName, description, minVolunteers, maxVolunteers, eventStartTime, eventEndTime, username],
     (err, res) => {
-      if (err != null) {
+      if (err !== null) {
         var response = {
           statusCode: 400,
           isBase64Encoded: false,
@@ -30,7 +30,7 @@ exports.handler = (event, context, callback) => {
           },
           body: "Failed to created Event: " + eventName
         };
-        callback(err, response);
+        callback(null, response);
       }
 
       var obj = {
@@ -49,7 +49,7 @@ exports.handler = (event, context, callback) => {
         'INSERT INTO public."EventRole"("EventID", "RoleName", "RoleDescription", "CreatedBy", "CreateTime", "UpdatedBy", "UpdateTime") VALUES ($1, $2, $3, $4, (extract(epoch from NOW()) * 1000), $4, (extract(epoch from NOW()) * 1000)) RETURNING "ID";',
         [obj.ID, 'Organizer', 'In charge of organizing event', username],
         (err, res) => {
-          if (err != null) {
+          if (err !== null) {
             var response = {
               statusCode: 400,
               isBase64Encoded: false,
@@ -58,7 +58,7 @@ exports.handler = (event, context, callback) => {
               },
               body: "Failed to create EventRole: " + username
             };
-            callback(err, response);
+            callback(null, response);
           }
 
           var obj = {
@@ -69,7 +69,7 @@ exports.handler = (event, context, callback) => {
             'INSERT INTO public."UserEventRoleLookup"("Username", "EventRoleID") VALUES ($1, $2);',
             [username, obj.ID],
             (err, res) => {
-              if (err != null) {
+              if (err !== null) {
                 var response = {
                   statusCode: 400,
                   isBase64Encoded: false,
@@ -78,7 +78,7 @@ exports.handler = (event, context, callback) => {
                   },
                   body: "Failed to create UserEventRoleLookup: " + username
                 };
-                callback(err, response);
+                callback(null, response);
               }
 
               // Call back from original
