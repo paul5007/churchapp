@@ -37,6 +37,7 @@ functions:
       - http:
           path: /event/create
           method: post
+          cors: true
     environment:
       PGDATABASE: ${self:custom.PGDATABASE}
       PGHOST: ${self:custom.PGHOST}

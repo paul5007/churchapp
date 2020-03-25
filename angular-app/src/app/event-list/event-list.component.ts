@@ -27,7 +27,11 @@ export class EventListComponent implements OnInit {
   }
 
   public createEvent() {
-    this.router.navigate(['/user/create']);
+    this.router.navigate(['/event/create']);
+  }
+
+  public viewEvent(id: String) {
+    this.router.navigate(['/event', id]);
   }
 
 }

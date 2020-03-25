@@ -18,7 +18,7 @@ export class UserCreateComponent implements OnInit {
   public failedCreate: boolean = false;
 
   constructor(private userService: UserService, private router: Router, private formBuilder: FormBuilder) {
-    this.form = formBuilder.group({
+    this.form = this.formBuilder.group({
       "username": this.username,
       "password": this.password,
       "email": this.email

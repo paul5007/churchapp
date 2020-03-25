@@ -6,6 +6,7 @@ import { EventListComponent } from '../event-list/event-list.component';
 import { LoginComponent } from '../login/login.component';
 import { UserCreateComponent } from '../user-create/user-create.component';
 import { EventCreateComponent } from '../event-create/event-create.component';
+import { EventComponent } from '../event/event.component';
 
 const routes: Routes = [{
   path: '',
@@ -22,6 +23,10 @@ const routes: Routes = [{
 {
   path: 'event/create',
   component: EventCreateComponent
+},
+{
+  path: 'event/:id',
+  component: EventComponent
 },
 {
   path: 'events',

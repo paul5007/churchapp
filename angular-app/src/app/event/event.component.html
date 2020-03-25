@@ -1,1 +1,15 @@
-<p>event works!</p>
+<h1>{{ event.EventName }}</h1>
+<h3>{{ event.Description }}</h3>
+<h6>
+  Start Date: {{ event.EventStartTime | date }}
+  <span *ngIf="event.EventEndTime">
+    End Date: {{ event.EventEndTime | date }}</span
+  >
+</h6>
+<p>Minimum Volunteers: {{ event.MinVolunteers }}</p>
+<p *ngIf="event.MaxVolunteers != -1">
+  Maximum Volunteers: {{ event.MaxVolunteers }}
+</p>
+<small
+  >Created by: {{ event.CreatedBy }} on {{ event.CreateTime | date }}</small
+>

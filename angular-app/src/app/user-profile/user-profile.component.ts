@@ -16,12 +16,13 @@ export class UserProfileComponent implements OnInit {
   public events: [];
 
   ngOnInit() {
-    this.currentUser = this.userService.currentUser;
+    this.currentUser = this.userService.getCurrentUser();
     if (this.currentUser == null) {
       this.router.navigate(['/login'])
     }
     this.eventService.getUserEvents(this.currentUser).subscribe(resp => {
       this.events = resp;
+      console.log(this.events)
     });
   }
 
