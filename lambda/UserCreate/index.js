@@ -24,17 +24,15 @@ exports.handler = (event, context, callback) => {
         'INSERT INTO public."UserPrivate"("Username", "Password", "Email") VALUES ($1, $2, $3);',
         [username, hash, email],
         (err, res) => {
-          console.log(err)
           if (err !== undefined) {
-            var response = {
-              statusCode: 400,
+            var response409 = {
+              statusCode: 409,
               isBase64Encoded: false,
               headers: {
                 "Access-Control-Allow-Origin": "*"
               },
-              body: "Failed to create UserPrivate: " + username
             };
-            callback(null, response);
+            callback(null, response409);
           }
 
 
@@ -43,25 +41,24 @@ exports.handler = (event, context, callback) => {
             [username],
             (err, res) => {
               if (err !== undefined) {
-                var response = {
-                  statusCode: 400,
+                var response4092 = {
+                  statusCode: 409,
                   isBase64Encoded: false,
                   headers: {
                     "Access-Control-Allow-Origin": "*"
                   },
                   body: "Failed to create User: " + username
                 };
-                callback(null, response);
+                callback(null, response4092);
               }
               var response = {
                 statusCode: 200,
                 isBase64Encoded: false,
                 headers: {
                   "Access-Control-Allow-Origin": "*"
-                },
-                body: "Successfully created User: " + username
+                }
               };
-              callback(err, response);
+              callback(null, response);
             }
           );
         }
