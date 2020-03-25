@@ -45,7 +45,7 @@ export class UserCreateComponent implements OnInit {
       return;
     }
     this.userService.createNewUser(this.username.value, this.password.value, this.email.value).subscribe(resp => {
-      if (resp !== undefined) {
+      if (resp !== null) {
         this.form.reset();
         this.failedCreate = true;
       } else {
