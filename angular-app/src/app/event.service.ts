@@ -12,18 +12,23 @@ export class EventService {
 
   private basePath = 'https://9grr2cnefd.execute-api.us-east-1.amazonaws.com/dev';
 
-  public readEvent(id): Observable<any> {
+  public getEvent(id): Observable<any> {
     const url = this.basePath + "/event/";
     return this.http.get(url + id);
   }
 
-  public readAllEvents(): Observable<any> {
+  public getAllEvents(): Observable<any> {
     const url = this.basePath + "/event/readall";
     return this.http.get(url);
   }
 
   public getUserEvents(username: String): Observable<any> {
     const url = this.basePath + "/event/role/read/" + username;
+    return this.http.get(url);
+  }
+
+  public getEventRoles(id: String): Observable<any> {
+    const url = this.basePath + "/event/role/list/" + id;
     return this.http.get(url);
   }
 

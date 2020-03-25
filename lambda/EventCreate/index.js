@@ -44,8 +44,8 @@ exports.handler = (event, context, callback) => {
         body: JSON.stringify(obj)
       };
       pool.query(
-        'INSERT INTO public."EventRole"("EventID", "RoleName", "RoleDescription", "CreatedBy", "CreateTime", "UpdatedBy", "UpdateTime") VALUES ($1, $2, $3, $4, (extract(epoch from NOW()) * 1000), $4, (extract(epoch from NOW()) * 1000)) RETURNING "ID";',
-        [obj.ID, 'Organizer', 'In charge of organizing event', username],
+        'INSERT INTO public."EventRole"("EventID", "RoleName", "RoleDescription", "RoleMaxVolunteers", "CreatedBy", "CreateTime", "UpdatedBy", "UpdateTime") VALUES ($1, $2, $3, $4, $5, (extract(epoch from NOW()) * 1000), $5, (extract(epoch from NOW()) * 1000)) RETURNING "ID";',
+        [obj.ID, 'Organizer', 'In charge of organizing event', '1', username],
         (err, res) => {
           if (err !== undefined) {
             var response = {
