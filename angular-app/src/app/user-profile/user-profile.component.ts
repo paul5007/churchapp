@@ -17,7 +17,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.userService.getCurrentUser();
-    if (this.currentUser == null) {
+    if (this.currentUser == "") {
       this.router.navigate(['/login'])
     }
     this.eventService.getUserEvents(this.currentUser).subscribe(resp => {

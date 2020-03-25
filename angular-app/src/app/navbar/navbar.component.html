@@ -4,7 +4,14 @@
     <a class="nav-item nav-link" [routerLink]="'/events'">Events</a>
   </div>
   <div class="navbar-text ml-auto">
-    <a class="ml mr-2" (click)="logout()">Logout</a
+    <button
+      *ngIf="currentUser == ''"
+      class="btn btn-success mr-2"
+      [routerLink]="'/user/create'"
+    >
+      Sign Up!
+    </button>
+    <a *ngIf="currentUser != ''" class="ml mr-2" (click)="logout()">Logout</a
     ><span [routerLink]="'/profile'">
       Profile
       <svg

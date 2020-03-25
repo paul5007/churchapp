@@ -12,7 +12,7 @@ export class EventComponent implements OnInit {
 
   public event;
   public eventRoles;
-  public loggedIn: boolean = false;
+  public currentUser: String = "";
 
   constructor(private eventService: EventService, private userService: UserService, private route: ActivatedRoute) { }
 
@@ -23,7 +23,7 @@ export class EventComponent implements OnInit {
     this.eventService.getEventRoles(this.route.snapshot.paramMap.get('id')).subscribe(resp => {
       this.eventRoles = resp;
     })
-    this.loggedIn = this.userService.getCurrentUser();
+    this.currentUser = this.userService.getCurrentUser();
   }
 
 }
