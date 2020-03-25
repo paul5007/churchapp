@@ -7,7 +7,7 @@ exports.handler = (event, context, callback) => {
   const eventID = event["pathParameters"]["eventID"];
 
   pool.query(
-    'SELECT "RoleName", "RoleMaxVolunteers" FROM public."EventRole" WHERE "EventID" = $1;',
+    'SELECT "RoleName", "RoleDescription", "RoleMaxVolunteers" FROM public."EventRole" WHERE "EventID" = $1;',
     [eventID],
     (err, res) => {
       var response = {
@@ -16,7 +16,7 @@ exports.handler = (event, context, callback) => {
         headers: {
           "Access-Control-Allow-Origin": "*"
         },
-        body: JSON.stringify(res.rows[0])
+        body: JSON.stringify(res.rows)
       };
       callback(err, response);
     }
