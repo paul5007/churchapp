@@ -4,7 +4,6 @@ pool.connect();
 
 exports.handler = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  console.log(event)
   var body = JSON.parse(event.body);
   var eventName = body["eventName"];
   var description = body["description"];
@@ -21,7 +20,7 @@ exports.handler = (event, context, callback) => {
     'INSERT INTO public."Event"("EventName", "Description", "MinVolunteers", "MaxVolunteers", "EventStartTime", "EventEndTime", "CreatedBy", "CreateTime", "UpdatedBy", "UpdateTime") VALUES ($1, $2, $3, $4, $5, $6, $7, (extract(epoch from NOW()) * 1000), $7, (extract(epoch from NOW()) * 1000)) RETURNING "ID";',
     [eventName, description, minVolunteers, maxVolunteers, eventStartTime, eventEndTime, username],
     (err, res) => {
-      if (err !== null) {
+      if (err !== undefined) {
         var response = {
           statusCode: 400,
           isBase64Encoded: false,
@@ -44,12 +43,11 @@ exports.handler = (event, context, callback) => {
         },
         body: JSON.stringify(obj)
       };
-      console.log(obj)
       pool.query(
         'INSERT INTO public."EventRole"("EventID", "RoleName", "RoleDescription", "CreatedBy", "CreateTime", "UpdatedBy", "UpdateTime") VALUES ($1, $2, $3, $4, (extract(epoch from NOW()) * 1000), $4, (extract(epoch from NOW()) * 1000)) RETURNING "ID";',
         [obj.ID, 'Organizer', 'In charge of organizing event', username],
         (err, res) => {
-          if (err !== null) {
+          if (err !== undefined) {
             var response = {
               statusCode: 400,
               isBase64Encoded: false,
@@ -64,12 +62,11 @@ exports.handler = (event, context, callback) => {
           var obj = {
             "ID": res.rows[0]["ID"]
           };
-          console.log(obj)
           pool.query(
             'INSERT INTO public."UserEventRoleLookup"("Username", "EventRoleID") VALUES ($1, $2);',
             [username, obj.ID],
             (err, res) => {
-              if (err !== null) {
+              if (err !== undefined) {
                 var response = {
                   statusCode: 400,
                   isBase64Encoded: false,

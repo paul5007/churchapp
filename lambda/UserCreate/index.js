@@ -13,35 +13,45 @@ exports.handler = (event, context, callback) => {
     'INSERT INTO public."UserPrivate"("Username", "Password", "Email") VALUES ($1, $2, $3);',
     [username, password, email],
     (err, res) => {
-      if (err !== null) {
+      if (err !== undefined) {
         var response = {
           statusCode: 400,
           isBase64Encoded: false,
           headers: {
             "Access-Control-Allow-Origin": "*"
           },
-          body: "Failed to create User: " + username
+          body: "Failed to create UserPrivate: " + username
         };
         callback(null, response);
       }
+
+
+      pool.query(
+        'INSERT INTO public."User"("Username") VALUES ($1);',
+        [username],
+        (err, res) => {
+          if (err !== undefined) {
+            var response = {
+              statusCode: 400,
+              isBase64Encoded: false,
+              headers: {
+                "Access-Control-Allow-Origin": "*"
+              },
+              body: "Failed to create User: " + username
+            };
+            callback(null, response);
+          }
+          var response = {
+            statusCode: 200,
+            isBase64Encoded: false,
+            headers: {
+              "Access-Control-Allow-Origin": "*"
+            },
+            body: "Successfully created User: " + username
+          };
+          callback(err, response);
+        }
+      );
     }
   );
-
-  pool.query(
-    'INSERT INTO public."User"("Username") VALUES ($1);',
-    [username],
-    (err, res) => {
-      var response = {
-        statusCode: 200,
-        isBase64Encoded: false,
-        headers: {
-          "Access-Control-Allow-Origin": "*"
-        },
-        body: "Successfully created User: " + username
-      };
-      callback(err, response);
-    }
-  );
-
-
 };
