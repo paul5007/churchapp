@@ -15,13 +15,6 @@ exports.handler = (event, context, callback) => {
   var username = body["username"];
   if (maxVolunteers == null) {
     maxVolunteers = -1;
-  } else {
-    maxVolunteers = parseInt(maxVolunteers)
-  }
-  if (eventEndTime == null) {
-    eventEndTime = -1;
-  } else {
-    eventEndTime = parseInt(eventEndTime)
   }
 
   pool.query(
@@ -43,7 +36,7 @@ exports.handler = (event, context, callback) => {
       var obj = {
         "ID": res.rows[0]["ID"]
       };
-      var response = {
+      var responseOK = {
         statusCode: 200,
         isBase64Encoded: false,
         headers: {
@@ -51,7 +44,49 @@ exports.handler = (event, context, callback) => {
         },
         body: JSON.stringify(obj)
       };
-      callback(err, response);
+      console.log(obj)
+      pool.query(
+        'INSERT INTO public."EventRole"("EventID", "RoleName", "RoleDescription", "CreatedBy", "CreateTime", "UpdatedBy", "UpdateTime") VALUES ($1, $2, $3, $4, (extract(epoch from NOW()) * 1000), $4, (extract(epoch from NOW()) * 1000)) RETURNING "ID";',
+        [obj.ID, 'Organizer', 'In charge of organizing event', username],
+        (err, res) => {
+          if (err != null) {
+            var response = {
+              statusCode: 400,
+              isBase64Encoded: false,
+              headers: {
+                "Access-Control-Allow-Origin": "*"
+              },
+              body: "Failed to create EventRole: " + username
+            };
+            callback(err, response);
+          }
+
+          var obj = {
+            "ID": res.rows[0]["ID"]
+          };
+          console.log(obj)
+          pool.query(
+            'INSERT INTO public."UserEventRoleLookup"("Username", "EventRoleID") VALUES ($1, $2);',
+            [username, obj.ID],
+            (err, res) => {
+              if (err != null) {
+                var response = {
+                  statusCode: 400,
+                  isBase64Encoded: false,
+                  headers: {
+                    "Access-Control-Allow-Origin": "*"
+                  },
+                  body: "Failed to create UserEventRoleLookup: " + username
+                };
+                callback(err, response);
+              }
+
+              // Call back from original
+              callback(err, responseOK);
+            }
+          );
+        }
+      );
     }
   );
 };
