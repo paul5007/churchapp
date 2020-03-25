@@ -31,7 +31,6 @@ export class UserCreateComponent implements OnInit {
   }
 
   public onSubmit() {
-    console.log(this.username.value + " " + this.password.value)
     if (this.username.value == null || this.username.value == "") {
       this.failedUsername = true;
     } else {
@@ -46,7 +45,7 @@ export class UserCreateComponent implements OnInit {
       return;
     }
     this.userService.createNewUser(this.username.value, this.password.value, this.email.value).subscribe(resp => {
-      if (resp === undefined) {
+      if (resp !== undefined) {
         this.form.reset();
         this.failedCreate = true;
       } else {
