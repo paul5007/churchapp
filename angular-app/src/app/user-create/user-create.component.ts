@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-create',
@@ -45,11 +46,11 @@ export class UserCreateComponent implements OnInit {
       return;
     }
     this.userService.createNewUser(this.username.value, this.password.value, this.email.value).subscribe(resp => {
-      if (resp !== null) {
+      if (resp == null) {
+        this.router.navigate(['/login']);
+      } else {
         this.form.reset();
         this.failedCreate = true;
-      } else {
-        this.router.navigate(['/login']);
       }
     });
   }
