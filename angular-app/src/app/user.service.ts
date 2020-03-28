@@ -44,6 +44,6 @@ export class UserService {
   }
 
   public logout() {
-    this.currentUser = null;
+    this.currentUser.next("");
   }
 }
