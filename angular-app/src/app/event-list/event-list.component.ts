@@ -13,7 +13,7 @@ export class EventListComponent implements OnInit {
   public hasCurrentUser: boolean = false;
 
   constructor(private eventService: EventService, private userService: UserService, private router: Router) {
-    if (userService.getCurrentUser() != null) {
+    if (userService.getCurrentUser() != "") {
       this.hasCurrentUser = true;
     }
   }
